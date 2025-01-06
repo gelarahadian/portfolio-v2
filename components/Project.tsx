@@ -9,39 +9,36 @@ import { Tilt } from "react-tilt";
 const Project = () => {
   const projects = [
     {
-      type: "Landing Page",
-      title: "Lorem  dolor sit amet",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      sourceCode: "https//github.com/gelarahadian",
-      url: "https://lorem.com/",
+      type: "Web Application",
+      title: "IMDB Clone",
+      description: "Build With: ReactJs, NextJs, TailwindCss, MongoDB ",
+      sourceCode: "https://github.com/gelarahadian/imdb-clone-gelar",
+      url: "https://imdb-clone.lar.my.id/",
       image: "/preview-projects/preview-project1.png",
     },
     {
       type: "Landing Page",
-      title: "Lorem ipsum  sit amet",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      sourceCode: "https//github.com/gelarahadian",
-      url: "https://lorem.com/",
+      title: "Healthacare",
+      description: "Build With: ReactJs, NextJs, TailwindCss, ",
+      sourceCode:
+        "https://github.com/gelarahadian/portfolio-v1/tree/main/app/(project)/healthcare",
+      url: "https://gelarahadian-v1.vercel.app/healthcare",
       image: "/preview-projects/preview-project2.png",
     },
     {
       type: "Landing Page",
-      title: "Lorem ipsum dolor  amet",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      sourceCode: "https//github.com/gelarahadian",
-      url: "https://lorem.com/",
+      title: "Red Store",
+      description: "Build With: HTML5, CSS",
+      sourceCode: "https://github.com/gelarahadian/redstore",
+      url: "https://gelarahadian.github.io/redstore/",
       image: "/preview-projects/preview-project3.png",
     },
     {
-      type: "Landing Page",
-      title: "Lorem ipsum dolor sit ",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      sourceCode: "https//github.com/gelarahadian",
-      url: "https://lorem.com/",
+      type: "Web Application",
+      title: "airbnb clone",
+      description: "Build With: JavaScript, ReactJS, NextJS, TailwindCSS",
+      sourceCode: "https://github.com/gelarahadian/airbnb-gelar",
+      url: "https://airbnb-gelar.vercel.app/",
       image: "/preview-projects/preview-project4.png",
     },
   ];
@@ -95,16 +92,20 @@ const Project = () => {
               </section>
               <section
                 className={`flex-1 flex flex-col  ${
-                  index % 2 === 0 ? "" : "sm:text-end items-end"
+                  index % 2 === 0 ? "" : "sm:text-end sm:items-end"
                 }`}
               >
                 <p className="uppercase text-secondary mb-3">{project.type}</p>
                 <p className="mb-3">{project.title}</p>
                 <p className="mb-3">{project.description}</p>
-                <ArrowLink href="#" className="mb-3">
+                <ArrowLink href={project.url} className="mb-3" target="_blank">
                   Go To The App
                 </ArrowLink>
-                <ArrowLink href="#" type="accent">
+                <ArrowLink
+                  href={project.sourceCode}
+                  target="_blank"
+                  type="accent"
+                >
                   Source Code
                 </ArrowLink>
               </section>
