@@ -9,12 +9,20 @@ import { Tilt } from "react-tilt";
 const Project = () => {
   const projects = [
     {
+      type: "Ecommerce",
+      title: "Belilar",
+      description: "Build With: ReactJs, NextJs, TailwindCss, MongoDB ",
+      sourceCode: "https://github.com/gelarahadian/beliar",
+      url: "https://belilar.lar.my.id/",
+      image: "/preview-projects/preview-project1.png",
+    },
+    {
       type: "Web Application",
       title: "IMDB Clone",
       description: "Build With: ReactJs, NextJs, TailwindCss, MongoDB ",
       sourceCode: "https://github.com/gelarahadian/imdb-clone-gelar",
       url: "https://imdb-clone.lar.my.id/",
-      image: "/preview-projects/preview-project1.png",
+      image: "/preview-projects/preview-project2.png",
     },
     {
       type: "Landing Page",
@@ -23,7 +31,7 @@ const Project = () => {
       sourceCode:
         "https://github.com/gelarahadian/portfolio-v1/tree/main/app/(project)/healthcare",
       url: "https://gelarahadian-v1.vercel.app/healthcare",
-      image: "/preview-projects/preview-project2.png",
+      image: "/preview-projects/preview-project3.png",
     },
     {
       type: "Landing Page",
@@ -31,7 +39,7 @@ const Project = () => {
       description: "Build With: HTML5, CSS",
       sourceCode: "https://github.com/gelarahadian/redstore",
       url: "https://gelarahadian.github.io/redstore/",
-      image: "/preview-projects/preview-project3.png",
+      image: "/preview-projects/preview-project4.png",
     },
     {
       type: "Web Application",
@@ -39,7 +47,7 @@ const Project = () => {
       description: "Build With: JavaScript, ReactJS, NextJS, TailwindCSS",
       sourceCode: "https://github.com/gelarahadian/airbnb-gelar",
       url: "https://airbnb-gelar.vercel.app/",
-      image: "/preview-projects/preview-project4.png",
+      image: "/preview-projects/preview-project5.png",
     },
   ];
 
@@ -72,7 +80,7 @@ const Project = () => {
           {projects.map((project, index) => (
             <li
               key={project.title}
-              className={`flex flex-col items-center ${
+              className={`flex flex-col sm:items-center ${
                 index % 2 === 0 ? "sm:flex-row " : "sm:flex-row-reverse "
               } space-y-8 sm:space-y-0 `}
             >
