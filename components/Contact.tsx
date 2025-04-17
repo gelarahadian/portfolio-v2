@@ -39,8 +39,8 @@ const Contact = () => {
       </article>
       <article className="w-full">
         <ul className="text-center text-secondary space-x-2">
-          {medsos.map((med) => (
-            <a href={med.url} target="_blank">
+          {medsos.map((med, i) => (
+            <a key={i} href={med.url} target="_blank">
               <li
                 key={med.name}
                 className="inline-flex relative overflow-hidden items-center mt-2 sm:mt-0 p-2 border hover:text-primary border-secondary rounded-full transition-all duration-150 ease-linear group before:content-[''] before:absolute before:w-8 before:h-8 before:bg-secondary before:rounded-full before:-left-8 before:hover:left-0 before:hover:h-80 before:hover:w-80 before:-z-20 before:transition-all before:duration-300 before:ease-linear "
