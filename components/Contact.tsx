@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import ArrowLink from "./ArrowLink";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";

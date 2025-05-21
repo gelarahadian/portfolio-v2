@@ -1,3 +1,5 @@
+"use client";
+
 import React, { FC } from "react";
 import useDarkMode from "@/hooks/useDarkMode";
 import { FaLightbulb } from "react-icons/fa";
