@@ -1,8 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
 import { FaAngleRight } from "react-icons/fa";
 import ArrowLink from "./ArrowLink";
 import AnimationText from "./AnimationText";
+import { sendGAEvent } from "@next/third-parties/google";
 
 const Main = () => {
   return (
@@ -22,7 +25,14 @@ const Main = () => {
         <p className="mb-3 text-gray font-normal">
           Here, you'll find my latest projects, skills, and more.
         </p>
-        <ArrowLink href="#about">About Me</ArrowLink>
+        <ArrowLink
+          href="#about"
+          onClick={() =>
+            sendGAEvent({ event: "homeAboutButton", value: "about button" })
+          }
+        >
+          About Me
+        </ArrowLink>
       </article>
     </section>
   );

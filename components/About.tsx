@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
 import ArrowLink from "./ArrowLink";
+import { sendGAEvent } from "@next/third-parties/google";
 
 const About = () => {
   return (
@@ -31,6 +34,12 @@ const About = () => {
             href="https://drive.google.com/file/d/1YZRRxXgkITZ7aV3L6v-FoRaapzrIh6hJ/view?usp=drive_link"
             target="_blank"
             type="accent"
+            onClick={() =>
+              sendGAEvent({
+                event: "downloadMyCVButtton",
+                value: "download my cv",
+              })
+            }
           >
             Download My CV
           </ArrowLink>

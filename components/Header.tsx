@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import ToggleDarkMode from "./ToggleDarkMode";
 import { RxHamburgerMenu } from "react-icons/rx";
 import Image from "next/image";
+import { sendGAEvent } from "@next/third-parties/google";
 
 interface NavItem {
   title: string;
@@ -28,6 +29,7 @@ const Header = () => {
 
   const handleNavClick = (item: NavItem) => {
     setNavActive(item);
+    sendGAEvent({ event: `${item.title}Clicked`, value: `${item}` });
   };
 
   const handleShowNav = () => setShowNav(!showNav);

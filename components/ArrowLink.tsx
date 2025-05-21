@@ -7,6 +7,7 @@ interface ArrowLinkProps {
   href: string;
   className?: string;
   type?: "secondary" | "accent";
+  onClick?: () => void;
   target?: string;
 }
 
@@ -15,6 +16,7 @@ const ArrowLink: FC<ArrowLinkProps> = ({
   className,
   type = "secondary",
   children,
+  onClick,
   target = "",
 }) => {
   return (
@@ -24,6 +26,7 @@ const ArrowLink: FC<ArrowLinkProps> = ({
       className={`flex items-center space-x-3 group font-semibold ${
         type === "accent" ? "text-accent" : "text-secondary"
       } ${className}`}
+      onClick={onClick}
     >
       <span>{children}</span>{" "}
       <FaAngleRight className="group-hover:translate-x-2 transition-all duration-75 ease-linear" />

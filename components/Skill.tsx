@@ -1,6 +1,8 @@
+"use client";
 import React from "react";
 import AnimationText from "./AnimationText";
 import Link from "next/link";
+import { sendGAEvent } from "@next/third-parties/google";
 
 const Skill = () => {
   const logos = [
@@ -77,6 +79,9 @@ const Skill = () => {
 "
             target="_blank"
             className="text-accent"
+            onClick={() =>
+              sendGAEvent({ event: "linkedInButton", value: "linkedin button" })
+            }
           >
             Linkedin
           </Link>{" "}
