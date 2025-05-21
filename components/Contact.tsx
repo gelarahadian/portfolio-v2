@@ -35,7 +35,7 @@ const Contact = () => {
           </h2>
         </section>
         <section className="flex w-full sm:max-w-48 justify-end">
-          <ArrowLink href="#">Hire Me</ArrowLink>
+          <ArrowLink href="https://wa.me/6283125999977?text=Halo%20saya%20tertarik%20untuk%20bekerja%20sama%20dengan%20Anda" target="_blank">Hire Me</ArrowLink>
         </section>
       </article>
       <article className="w-full">
