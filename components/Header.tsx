@@ -1,9 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ToggleDarkMode from "./ToggleDarkMode";
 import { RxHamburgerMenu } from "react-icons/rx";
 import Image from "next/image";
 import { sendGAEvent } from "@next/third-parties/google";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 interface NavItem {
   title: string;
@@ -16,8 +18,21 @@ const Header = () => {
     title: "Home",
     url: "#",
   });
+  const header = useRef(null);
 
-  useEffect(() => {});
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({ defaults: { duration: 0.9 } });
+      tl.from(".logo", { x: -300, opacity: 0 })
+        .from(".home", { x: -300, opacity: 0 }, "-=0.7")
+        .from(".about", { x: -300, opacity: 0 }, "-=0.7")
+        .from(".skill", { x: -300, opacity: 0 }, "-=0.7")
+        .from(".project", { x: -300, opacity: 0 }, "-=0.7")
+        .from(".contact", { x: -300, opacity: 0 }, "-=0.7")
+        .from(".toggle", { x: -300, opacity: 0 }, "-=0.7");
+    },
+    { scope: header }
+  );
 
   const nav: NavItem[] = [
     { title: "Home", url: "#" },
@@ -36,9 +51,9 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed w-full z-50 px-6">
+      <header ref={header} className="fixed w-full z-50 px-6">
         <div className="flex justify-between items-center max-w-[960px] w-full mx-auto px-6 py-4 mt-6 shadow-xl dark:shadow-primary/30 rounded-full bg-primary dark:bg-black transition-all duration-300 ease-linear">
-          <a href="/" className="flex items-center space-x-4">
+          <a href="/" className="flex items-center space-x-4 logo">
             <Image
               src={"/lar-logo.png"}
               height={24}
@@ -55,7 +70,7 @@ const Header = () => {
                 <a
                   href={item.url}
                   key={item.title}
-                  className="dark:text-primary"
+                  className={`dark:text-primary ${item.title.toLocaleLowerCase()}`}
                 >
                   <li
                     className={`${
@@ -71,7 +86,7 @@ const Header = () => {
               ))}
             </ul>
           </nav>
-          <ToggleDarkMode className="hidden sm:block " />
+          <ToggleDarkMode className="hidden sm:block toggle" />
           <button className="block sm:hidden" onClick={() => handleShowNav()}>
             <RxHamburgerMenu />
           </button>

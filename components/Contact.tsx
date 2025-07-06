@@ -25,7 +25,10 @@ const Contact = () => {
     },
   ];
   return (
-    <section id="contact" className="max-w-[1440px] mx-auto py-16 px-12">
+    <section
+      id="contact"
+      className="panel bg-primary dark:bg-black max-w-[1440px] mx-auto py-16 px-12"
+    >
       <article className="flex flex-col sm:flex-row justify-between items-center  max-w-[960px] mx-auto shadow-xl dark:shadow-primary/30 py-8 px-6 mb-6 ">
         <section className="mb-3 sm:mb-0 flex-1">
           <p className="mb-4 text-xs md:text-base">

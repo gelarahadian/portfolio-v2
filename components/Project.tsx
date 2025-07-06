@@ -1,12 +1,19 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import AnimationText from "./AnimationText";
 import Link from "next/link";
 import Image from "next/image";
 import ArrowLink from "./ArrowLink";
 import { Tilt } from "react-tilt";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Project = () => {
+  const project = useRef(null);
+
   const projects = [
     {
       type: "Ecommerce",
@@ -62,11 +69,45 @@ const Project = () => {
     reset: true, // If the tilt effect has to be reset on exit.
     easing: "cubic-bezier(.03,.98,.52,.99)", // Easing on enter/exit.
   };
+
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({ defaults: { duration: 1 } });
+      tl.from(".title", { y: 120, opacity: 0 }).from(
+        ".paragraph",
+        { y: 120, opacity: 0 },
+        "-=0.8"
+      );
+
+      ScrollTrigger.create({
+        animation: tl,
+        trigger: project.current,
+        start: "top center",
+        toggleActions: "play none none none",
+      });
+
+      let projects = gsap.utils.toArray(".project");
+
+      gsap.from(projects, {
+        y: 100 * (projects.length - 1),
+        scrollTrigger: {
+          trigger: ".project",
+        },
+      });
+    },
+    { scope: project }
+  );
   return (
-    <section id="project" className="max-w-[1440px] mx-auto py-16 px-12">
+    <section
+      ref={project}
+      id="project"
+      className=" max-w-[1440px] mx-auto py-16 px-12"
+    >
       <article className="text-center max-w-[736px] mx-auto mb-6">
-        <AnimationText>Portfolio & Previous Projects</AnimationText>
-        <p>
+        <h1 className="title text-3xl sm:text-header font-bold mb-6 leading-[100%]">
+          <AnimationText>Portfolio & Previous Projects</AnimationText>
+        </h1>
+        <p className="paragraph">
           I have built various different projects to fit different aspects of
           the client's business. If you want to see more examples of my work
           than the ones showcased in this site, please{" "}
@@ -80,7 +121,7 @@ const Project = () => {
           {projects.map((project, index) => (
             <li
               key={project.title}
-              className={`flex flex-col sm:items-center ${
+              className={`project flex flex-col sm:items-center ${
                 index % 2 === 0 ? "sm:flex-row " : "sm:flex-row-reverse "
               } space-y-8 sm:space-y-0 `}
             >

@@ -1,16 +1,46 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useRef } from "react";
 import ArrowLink from "./ArrowLink";
 import { sendGAEvent } from "@next/third-parties/google";
+import AnimationText from "./AnimationText";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
+  const about = useRef(null);
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({ defaults: { duration: 1 } });
+      tl.from(".image", { opacity: 0, y: 120 })
+        .from(".text-about", { opacity: 0, x: -100 }, "-=0.7")
+        .from(".paragraph", { opacity: 0, x: -100 }, "-=0.7")
+        .from(".button-cv", { opacity: 0, x: -100 }, "-=0.7");
+
+      ScrollTrigger.create({
+        animation: tl,
+        trigger: about.current,
+        start: "top 60%",
+        end: "+=400",
+        scrub: true,
+        toggleActions: "play none none none",
+      });
+    },
+    { scope: about }
+  );
   return (
-    <section id="about" className="max-w-[1440px] mx-auto py-16 px-12">
+    <section
+      ref={about}
+      id="about"
+      className=" max-w-[1440px] mx-auto py-16 px-12 h-screen"
+    >
       <div className="flex flex-col sm:flex-row items-center space-y-8 sm:space-y-0 sm:space-x-20 lg:space-x-36">
         <article className="flex-1">
-          <div className="w-[300px] sm:w-full h-[400px] sm:h-[640px] relative before:content-[''] before:absolute before:w-[180px] sm:before:w-[300px] before:h-[180px] sm:before:h-[300px] lg:before:w-[360px] lg:before:h-[360px] before:bg-secondary before:-top-4 sm:before:-top-8 before:-left-4 sm:before:-left-8 before:rounded-[40px] sm:before:rounded-[100px] before:hover:blur-3xl before:transition-all before:duration-300 before:ease-linear after:content-[''] after:absolute after:w-[180px] after:h-[180px] sm:after:w-[300px] sm:after:h-[300px] lg:after:w-[360px] lg:after:h-[360px] after:bg-accent after:-bottom-4 sm:after:-bottom-8 after:-right-4 sm:after:-right-8 after:-z-10 after:rounded-[40px] sm:after:rounded-[100px] after:hover:blur-3xl after:transition-all after:duration-300 after:ease-linear">
+          <div className="image w-[300px] sm:w-full h-[400px] sm:h-[640px] relative before:content-[''] before:absolute before:w-[180px] sm:before:w-[300px] before:h-[180px] sm:before:h-[300px] lg:before:w-[360px] lg:before:h-[360px] before:bg-secondary before:-top-4 sm:before:-top-8 before:-left-4 sm:before:-left-8 before:rounded-[40px] sm:before:rounded-[100px] before:hover:blur-3xl before:transition-all before:duration-300 before:ease-linear after:content-[''] after:absolute after:w-[180px] after:h-[180px] sm:after:w-[300px] sm:after:h-[300px] lg:after:w-[360px] lg:after:h-[360px] after:bg-accent after:-bottom-4 sm:after:-bottom-8 after:-right-4 sm:after:-right-8 after:-z-10 after:rounded-[40px] sm:after:rounded-[100px] after:hover:blur-3xl after:transition-all after:duration-300 after:ease-linear">
             <Image
               src={"/gelar_photo.jpg"}
               alt="gelar photo"
@@ -21,8 +51,11 @@ const About = () => {
           </div>
         </article>
         <article className="flex-1">
-          <p className="text-secondary text-2xl">About Me</p>
-          <p className="text-2xl text-justify mb-3">
+          <p className="text-about text-secondary text-2xl">
+            {" "}
+            <AnimationText>About Me</AnimationText>
+          </p>
+          <p className="paragraph text-2xl text-justify mb-3">
             Hello, I'm Gelar Rahadian Fajar, a front-end developer with 3 years
             of experience. I have a strong passion for crafting captivating and
             functional user interfaces. With expertise in HTML, CSS, and
@@ -34,6 +67,7 @@ const About = () => {
             href="https://drive.google.com/file/d/1YZRRxXgkITZ7aV3L6v-FoRaapzrIh6hJ/view?usp=drive_link"
             target="_blank"
             type="accent"
+            className="button-cv"
             onClick={() =>
               sendGAEvent({
                 event: "downloadMyCVButtton",
