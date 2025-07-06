@@ -86,7 +86,7 @@ const Skill = () => {
     <section
       ref={skill}
       id="skill"
-      className="max-w-[1440px] mx-auto py-16 px-12 h-screen"
+      className="max-w-[1440px] mx-auto py-16 px-12 "
     >
       <article className="text-center max-w-[640px] mx-auto mt-20">
         <p className="info text-grey mb-3">
