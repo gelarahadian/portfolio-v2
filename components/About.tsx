@@ -1,86 +1,128 @@
 "use client";
-
 import Image from "next/image";
-import React, { useRef } from "react";
-import ArrowLink from "./ArrowLink";
-import { sendGAEvent } from "@next/third-parties/google";
-import AnimationText from "./AnimationText";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { useReveal } from "@/hooks/useReveal";
 
-gsap.registerPlugin(ScrollTrigger);
+const TAGS = [
+  "Problem Solver",
+  "Detail-Oriented",
+  "Performance Focused",
+  "Clean Code",
+  "Team Player",
+];
 
-const About = () => {
-  const about = useRef(null);
-  useGSAP(
-    () => {
-      const tl = gsap.timeline({ defaults: { duration: 1 } });
-      tl.from(".image", { opacity: 0, y: 120 })
-        .from(".text-about", { opacity: 0, x: -100 }, "-=0.7")
-        .from(".paragraph", { opacity: 0, x: -100 }, "-=0.7")
-        .from(".button-cv", { opacity: 0, x: -100 }, "-=0.7");
+export default function About() {
+  useReveal();
 
-      ScrollTrigger.create({
-        animation: tl,
-        trigger: about.current,
-        start: "top 60%",
-        end: "+=400",
-        scrub: true,
-        toggleActions: "play none none none",
-      });
-    },
-    { scope: about }
-  );
   return (
-    <section
-      ref={about}
-      id="about"
-      className=" max-w-[1440px] mx-auto py-16 px-12 h-screen"
-    >
-      <div className="flex flex-col sm:flex-row items-center space-y-8 sm:space-y-0 sm:space-x-20 lg:space-x-36">
-        <article className="flex-1">
-          <div className="image w-[300px] sm:w-full h-[400px] sm:h-[640px] relative before:content-[''] before:absolute before:w-[180px] sm:before:w-[300px] before:h-[180px] sm:before:h-[300px] lg:before:w-[360px] lg:before:h-[360px] before:bg-secondary before:-top-4 sm:before:-top-8 before:-left-4 sm:before:-left-8 before:rounded-[40px] sm:before:rounded-[100px] before:hover:blur-3xl before:transition-all before:duration-300 before:ease-linear after:content-[''] after:absolute after:w-[180px] after:h-[180px] sm:after:w-[300px] sm:after:h-[300px] lg:after:w-[360px] lg:after:h-[360px] after:bg-accent after:-bottom-4 sm:after:-bottom-8 after:-right-4 sm:after:-right-8 after:-z-10 after:rounded-[40px] sm:after:rounded-[100px] after:hover:blur-3xl after:transition-all after:duration-300 after:ease-linear">
-            <Image
-              src={"/gelar_photo.jpg"}
-              alt="gelar photo"
-              fill
-              sizes="960px"
-              className="object-cover object-right rounded-ss-[40px] sm:rounded-ss-[80px] rounded-se-[120px] sm:rounded-se-[240px] rounded-ee-[40px] sm:rounded-ee-[80px] rounded-es-[120px] sm:rounded-es-[240px]"
-            />
+    <section id="about" className="py-36 relative">
+      <div className="max-w-6xl mx-auto px-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+          {/* ── Image column ── */}
+          <div className="reveal relative">
+            {/* Decorative badge */}
+            <div
+              className="absolute -top-5 -right-5 z-10 w-[120px] h-[120px]
+                            border border-line bg-surface2 rounded-[20px]
+                            flex flex-col items-center justify-center
+                            font-display text-[11px] font-semibold uppercase
+                            tracking-[0.1em] text-muted text-center"
+            >
+              <span className="block text-[36px] font-extrabold text-accent leading-none">
+                4+
+              </span>
+              Years of
+              <br />
+              Experience
+            </div>
+
+            {/* Photo */}
+            <div className="relative rounded-[20px] overflow-hidden aspect-[4/5] bg-surface">
+              <Image
+                src="/gelar_photo.png"
+                alt="Gelar Rahadian Fajar"
+                fill
+                sizes="(max-width:768px) 100vw, 50vw"
+                className="object-cover object-top grayscale-[20%]
+                           hover:grayscale-0 hover:scale-[1.03]
+                           transition-all duration-500"
+              />
+            </div>
+
+            {/* Availability badge */}
+            <div
+              className="absolute bottom-6 left-6
+                            flex items-center gap-2.5
+                            bg-bg/85 backdrop-blur-xl
+                            border border-lineLight rounded-xl px-4 py-3"
+            >
+              <span
+                className="w-2 h-2 bg-green-400 rounded-full"
+                style={{ animation: "blink 2s infinite" }}
+              />
+              <span className="text-[13px] font-medium text-tx">
+                Open to Opportunities
+              </span>
+            </div>
           </div>
-        </article>
-        <article className="flex-1">
-          <p className="text-about text-secondary text-2xl">
-            {" "}
-            <AnimationText>About Me</AnimationText>
-          </p>
-          <p className="paragraph text-2xl text-justify mb-3">
-            Hello, I'm Gelar Rahadian Fajar, a front-end developer with 3 years
-            of experience. I have a strong passion for crafting captivating and
-            functional user interfaces. With expertise in HTML, CSS, and
-            JavaScript, I enjoy collaborating to deliver creative solutions.
-            Additionally, I'm eager to continue learning and staying up-to-date
-            with the latest web technologies.
-          </p>
-          <ArrowLink
-            href="https://drive.google.com/file/d/1YZRRxXgkITZ7aV3L6v-FoRaapzrIh6hJ/view?usp=drive_link"
-            target="_blank"
-            type="accent"
-            className="button-cv"
-            onClick={() =>
-              sendGAEvent({
-                event: "downloadMyCVButtton",
-                value: "download my cv",
-              })
-            }
-          >
-            Download My CV
-          </ArrowLink>
-        </article>
+
+          {/* ── Content column ── */}
+          <div>
+            <p className="section-label reveal">About Me</p>
+
+            <h2
+              className="reveal reveal-d1 text-[clamp(36px,4vw,56px)] font-bold
+                           leading-[1.05] tracking-tight mb-7"
+            >
+              Building the web,
+              <br />
+              one <span className="text-accent">pixel</span> at a time.
+            </h2>
+
+            <p
+              className="reveal reveal-d2 text-subtle text-[17px] leading-[1.75]
+                          font-light mb-5"
+            >
+              Hi, I&apos;m{" "}
+              <strong className="text-tx font-medium">
+                Gelar Rahadian Fajar
+              </strong>{" "}
+              — a full-stack developer based in Indonesia with 4+ years of
+              experience crafting web applications that don&apos;t just work,
+              they leave an impression.
+            </p>
+
+            <p
+              className="reveal reveal-d3 text-subtle text-[17px] leading-[1.75]
+                          font-light mb-5"
+            >
+              My focus is on the intersection of{" "}
+              <strong className="text-tx font-medium">clean code</strong> and{" "}
+              <strong className="text-tx font-medium">thoughtful design</strong>
+              . I specialize in React and Next.js ecosystems, building
+              everything from sleek landing pages to complex web applications
+              with real users and real stakes.
+            </p>
+
+            <p
+              className="reveal reveal-d3 text-subtle text-[17px] leading-[1.75]
+                          font-light"
+            >
+              When I&apos;m not pushing commits, I&apos;m exploring new
+              technologies, contributing to open source, and constantly raising
+              the bar for what &ldquo;good&rdquo; looks like on the web.
+            </p>
+
+            {/* Tags */}
+            <div className="reveal reveal-d4 flex flex-wrap gap-2 mt-8 mb-10">
+              {TAGS.map((t) => (
+                <span key={t} className="tag">
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
-};
-
-export default About;
+}

@@ -1,137 +1,149 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import ToggleDarkMode from "./ToggleDarkMode";
-import { RxHamburgerMenu } from "react-icons/rx";
-import Image from "next/image";
-import { sendGAEvent } from "@next/third-parties/google";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import { useEffect, useState } from "react";
 
-interface NavItem {
-  title: string;
-  url: string;
-}
+const NAV = [
+  { label: "Home",    href: "#"         },
+  { label: "About",   href: "#about"    },
+  { label: "Skills",  href: "#skills"   },
+  { label: "Work",    href: "#projects" },
+];
 
-const Header = () => {
-  const [showNav, setShowNav] = useState(false);
-  const [navActive, setNavActive] = useState<NavItem>({
-    title: "Home",
-    url: "#",
-  });
-  const header = useRef(null);
+export default function Header() {
+  const [scrolled,   setScrolled]   = useState(false);
+  const [active,     setActive]     = useState("#");
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  useGSAP(
-    () => {
-      const tl = gsap.timeline({ defaults: { duration: 0.9 } });
-      tl.from(".logo", { x: -300, opacity: 0 })
-        .from(".home", { x: -300, opacity: 0 }, "-=0.7")
-        .from(".about", { x: -300, opacity: 0 }, "-=0.7")
-        .from(".skill", { x: -300, opacity: 0 }, "-=0.7")
-        .from(".project", { x: -300, opacity: 0 }, "-=0.7")
-        .from(".contact", { x: -300, opacity: 0 }, "-=0.7")
-        .from(".toggle", { x: -300, opacity: 0 }, "-=0.7");
-    },
-    { scope: header }
-  );
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 50);
+      for (const id of ["projects", "skills", "about", "hero"]) {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 200) {
+          setActive(id === "hero" ? "#" : `#${id}`);
+          break;
+        }
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  const nav: NavItem[] = [
-    { title: "Home", url: "#" },
-    { title: "about", url: "#about" },
-    { title: "skill", url: "#skill" },
-    { title: "project", url: "#project" },
-    { title: "contact", url: "#contact" },
-  ];
-
-  const handleNavClick = (item: NavItem) => {
-    setNavActive(item);
-    sendGAEvent({ event: `${item.title}Clicked`, value: `${item}` });
+  const go = (href: string) => {
+    setMobileOpen(false);
+    if (href === "#") { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
-
-  const handleShowNav = () => setShowNav(!showNav);
 
   return (
     <>
-      <header ref={header} className="fixed w-full z-50 px-6">
-        <div className="flex justify-between items-center max-w-[960px] w-full mx-auto px-6 py-4 mt-6 shadow-xl dark:shadow-primary/30 rounded-full bg-primary dark:bg-black transition-all duration-300 ease-linear">
-          <a href="/" className="flex items-center space-x-4 logo">
-            <Image
-              src={"/lar-logo.png"}
-              height={24}
-              width={24}
-              alt="logo gelar"
-            ></Image>
-            <h3 className="text-2xl font-normal text-gray-900 dark:text-primary uppercase">
-              Gelar
-            </h3>
-          </a>
-          <nav className="hidden sm:block">
-            <ul className="flex space-x-6">
-              {nav.map((item) => (
-                <a
-                  href={item.url}
-                  key={item.title}
-                  className={`dark:text-primary ${item.title.toLocaleLowerCase()}`}
-                >
-                  <li
-                    className={`${
-                      navActive.url === item.url
-                        ? "bg-secondary text-primary"
-                        : ""
-                    } py-1 px-3 rounded-full hover:bg-secondary hover:text-primary uppercase transition-all duration-300 ease-linear `}
-                    onClick={() => handleNavClick(item)}
-                  >
-                    {item.title}
-                  </li>
-                </a>
-              ))}
-            </ul>
-          </nav>
-          <ToggleDarkMode className="hidden sm:block toggle" />
-          <button className="block sm:hidden" onClick={() => handleShowNav()}>
-            <RxHamburgerMenu />
-          </button>
-        </div>
-        <div className={``}>
-          <nav
-            className={`p-2 block sm:hidden  absolute right-6 bg-primary dark:bg-black rounded-2xl shadow-xl dark:shadow-primary/30 py-4 mt-4 transition-all duration-300 ease-linear ${
-              showNav
-                ? "opacity-100 translate-x-0"
-                : "opacity-0 translate-x-[100%]"
-            }`}
+      {/* ── Desktop header ── */}
+      <header
+        className="fixed top-0 left-0 right-0 z-[100] flex justify-between items-center transition-all duration-300"
+        style={{
+          padding: scrolled ? "16px 40px" : "24px 40px",
+          background: scrolled ? "rgba(8,8,8,0.88)" : "transparent",
+          backdropFilter: scrolled ? "blur(20px)" : "none",
+          borderBottom: scrolled ? "1px solid #252525" : "1px solid transparent",
+        }}
+      >
+        {/* Logo */}
+        <a
+          href="#"
+          onClick={(e) => { e.preventDefault(); go("#"); }}
+          className="flex items-center gap-2.5 no-underline font-display font-extrabold text-lg tracking-tight"
+          style={{ color: "#ede9e4" }}
+        >
+          <span className="w-7 h-7 text-[13px] font-extrabold rounded-md flex items-center justify-center"
+                style={{ background: "#c8f23a", color: "#080808" }}>
+            G
+          </span>
+          Gelar
+        </a>
+
+        {/* Desktop nav */}
+        <nav className="hidden sm:flex items-center gap-2">
+          {NAV.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              onClick={(e) => { e.preventDefault(); go(item.href); }}
+              className="text-[13px] font-medium no-underline px-3.5 py-1.5 rounded-full uppercase tracking-wider transition-all duration-200"
+              style={{
+                background: active === item.href ? "#c8f23a" : "transparent",
+                color:      active === item.href ? "#080808" : "#6e6b66",
+              }}
+              onMouseEnter={(e) => {
+                if (active !== item.href) {
+                  (e.currentTarget as HTMLElement).style.background = "#181818";
+                  (e.currentTarget as HTMLElement).style.color = "#ede9e4";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (active !== item.href) {
+                  (e.currentTarget as HTMLElement).style.background = "transparent";
+                  (e.currentTarget as HTMLElement).style.color = "#6e6b66";
+                }
+              }}
+            >
+              {item.label}
+            </a>
+          ))}
+          <a
+            href="#contact"
+            onClick={(e) => { e.preventDefault(); go("#contact"); }}
+            className="ml-1 text-[13px] font-bold font-display no-underline px-4 py-1.5 rounded-full tracking-wider transition-all duration-200 hover:opacity-90"
+            style={{ background: "#c8f23a", color: "#080808" }}
           >
-            <ul className="flex flex-col space-y-2 ">
-              {nav.map((item) => (
-                <a
-                  href={item.url}
-                  key={item.title}
-                  className="dark:text-primary"
-                >
-                  <li
-                    className={`${
-                      navActive.url === item.url
-                        ? "bg-secondary text-primary"
-                        : ""
-                    } py-1 px-3 rounded-full hover:bg-secondary hover:text-primary uppercase transition-all duration-300 ease-linear `}
-                    onClick={() => {
-                      handleNavClick(item);
-                      handleShowNav();
-                    }}
-                  >
-                    {item.title}
-                  </li>
-                </a>
-              ))}
-            </ul>
-            <ToggleDarkMode className="mt-2 ml-2" />
-          </nav>
-        </div>
+            Hire Me
+          </a>
+        </nav>
+
+        {/* Hamburger */}
+        <button
+          className="sm:hidden flex flex-col gap-[5px] p-1 bg-transparent border-none cursor-pointer"
+          onClick={() => setMobileOpen(!mobileOpen)}
+        >
+          {[0, 1, 2].map((i) => (
+            <span
+              key={i}
+              className="block w-[22px] transition-all duration-300 origin-center"
+              style={{
+                height: "1.5px",
+                background: "#ede9e4",
+                transform: mobileOpen
+                  ? i === 0 ? "translateY(6.5px) rotate(45deg)"
+                  : i === 2 ? "translateY(-6.5px) rotate(-45deg)"
+                  : "scaleX(0)"
+                  : "none",
+              }}
+            />
+          ))}
+        </button>
       </header>
+
+      {/* ── Mobile overlay ── */}
       <div
-        className={` sm:hidden fixed inset-0 ${showNav ? "block" : "hidden"} `}
-        onClick={() => handleShowNav()}
-      ></div>
+        className="fixed inset-0 z-[99] flex flex-col items-center justify-center gap-6 transition-opacity duration-300"
+        style={{
+          background: "#080808",
+          opacity:       mobileOpen ? 1 : 0,
+          pointerEvents: mobileOpen ? "auto" : "none",
+        }}
+      >
+        {[...NAV, { label: "Contact", href: "#contact" }].map((item) => (
+          <a
+            key={item.href}
+            href={item.href}
+            onClick={(e) => { e.preventDefault(); go(item.href); }}
+            className="font-display text-[36px] font-bold no-underline transition-colors duration-200"
+            style={{ color: "#ede9e4" }}
+            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#c8f23a")}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "#ede9e4")}
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
     </>
   );
-};
-
-export default Header;
+}

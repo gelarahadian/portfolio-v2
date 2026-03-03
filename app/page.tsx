@@ -1,18 +1,20 @@
-"use client";
-
-import Main from "@/components/Main";
+import Hero from "@/components/Hero";
+import MarqueeBanner from "@/components/MarqueeBanner";
 import About from "@/components/About";
-import Skill from "@/components/Skill";
-import Project from "@/components/Project";
+import Skills from "@/components/Skills";
+import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 
 export default function Home() {
   return (
     <main>
-      <Main />
+      <Hero />
+      <MarqueeBanner />
       <About />
-      <Skill />
-      <Project />
+      <div className="divider h-8" />
+      <Skills />
+      <div className="divider" />
+      <Projects />
       <Contact />
     </main>
   );
