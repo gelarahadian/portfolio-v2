@@ -1,71 +1,108 @@
-# Portfolio Redesign — Next.js 15
+# 💼 Portfolio Website -- Gelar Rahadian Fajar
 
-## Struktur File
+Modern personal portfolio built with **Next.js**, featuring a clean dark
+design system, smooth animations, and a fully responsive layout.
 
-```
+------------------------------------------------------------------------
+
+## 📁 Project Structure
+
+``` bash
 src/
 ├── app/
-│   ├── globals.css        ← Design system, CSS variables, animasi global
-│   ├── layout.tsx         ← Root layout (Cursor + Header + Footer)
-│   └── page.tsx           ← Home page (semua section)
+│   ├── globals.css        # Design system, CSS variables, global animations
+│   ├── layout.tsx         # Root layout (Cursor + Header + Footer)
+│   └── page.tsx           # Home page (all sections)
 ├── components/
-│   ├── Cursor.tsx         ← Custom cursor (dot + ring follower)
-│   ├── Header.tsx         ← Sticky navbar + mobile menu
-│   ├── Hero.tsx           ← Hero section full-screen
-│   ├── MarqueeBanner.tsx  ← Tech stack scrolling marquee
-│   ├── About.tsx          ← About section dengan foto
-│   ├── Skills.tsx         ← Skills grid 6-kolom
-│   ├── Projects.tsx       ← Project cards (large + small)
-│   ├── Contact.tsx        ← Contact section
-│   └── Footer.tsx         ← Footer
+│   ├── Cursor.tsx         # Custom cursor (dot + ring follower)
+│   ├── Header.tsx         # Sticky navbar + mobile menu
+│   ├── Hero.tsx           # Full-screen hero section
+│   ├── MarqueeBanner.tsx  # Scrolling tech stack marquee
+│   ├── About.tsx          # About section with photo
+│   ├── Skills.tsx         # 6-column skills grid
+│   ├── Projects.tsx       # Project cards (large + small layout)
+│   ├── Contact.tsx        # Contact section
+│   └── Footer.tsx         # Footer
 └── hooks/
-    └── useReveal.ts       ← IntersectionObserver untuk scroll reveal
+    └── useReveal.ts       # IntersectionObserver for scroll reveal
 ```
 
-## Setup
+------------------------------------------------------------------------
 
-1. Copy semua file ke project Next.js kamu
-2. Pastikan sudah install dependencies:
-   ```
-   npm install
-   ```
-3. Tidak ada dependency tambahan — semua pakai vanilla CSS + built-in React hooks.
-   (GSAP & react-tilt dari versi lama sudah dihapus, animasi sekarang pakai CSS)
+## ⚙️ Setup
 
-## Design System (CSS Variables)
+1.  Clone the repository or copy the files into your Next.js project.
+2.  Install dependencies:
 
-Semua warna dikontrol via CSS variables di `globals.css`:
+``` bash
+npm install
+```
 
-| Variable        | Value                    | Keterangan         |
-|-----------------|--------------------------|--------------------|
-| `--bg`          | `#080808`                | Background utama   |
-| `--surface`     | `#111111`                | Card background    |
-| `--surface-2`   | `#181818`                | Card hover         |
-| `--border`      | `#252525`                | Border halus       |
-| `--text`        | `#ede9e4`                | Teks utama         |
-| `--text-muted`  | `#6e6b66`                | Teks sekunder      |
-| `--text-subtle` | `#9e9a95`                | Teks deskripsi     |
-| `--accent`      | `#c8f23a`                | Electric lime      |
-| `--accent-dim`  | `rgba(200,242,58,0.1)`   | Accent soft bg     |
-| `--accent-glow` | `rgba(200,242,58,0.2)`   | Glow effect        |
+3.  Run the development server:
 
-## Font
+``` bash
+npm run dev
+```
 
-- **Syne** — Display/heading (bold, geometric)
-- **DM Sans** — Body (clean, readable)
+> No additional dependencies required.\
+> Animations use vanilla CSS and built-in React hooks.\
+> (GSAP & react-tilt from the previous version have been removed.)
 
-Diload via Google Fonts di `globals.css`.
+------------------------------------------------------------------------
 
-## Fitur
+## 🎨 Design System
 
-- ✅ Custom cursor dengan smooth follower
-- ✅ Sticky header dengan glassmorphism scroll effect
-- ✅ Mobile hamburger menu dengan overlay
-- ✅ Scroll-based section reveal (IntersectionObserver)
-- ✅ Hero dengan animated badge, grid background, glow
-- ✅ Tech stack marquee banner
-- ✅ About section dengan foto frame
-- ✅ Skills grid hover effect
-- ✅ Project cards alternating layout (besar + kecil)
-- ✅ Contact section dengan ghost background text
-- ✅ Responsive untuk mobile
+All colors are controlled via CSS variables in `globals.css`.
+
+  Variable          Value                    Description
+  ----------------- ------------------------ ------------------------
+  `--bg`            `#080808`                Main background
+  `--surface`       `#111111`                Card background
+  `--surface-2`     `#181818`                Card hover background
+  `--border`        `#252525`                Subtle border
+  `--text`          `#ede9e4`                Primary text
+  `--text-muted`    `#6e6b66`                Secondary text
+  `--text-subtle`   `#9e9a95`                Description text
+  `--accent`        `#c8f23a`                Electric lime
+  `--accent-dim`    `rgba(200,242,58,0.1)`   Soft accent background
+  `--accent-glow`   `rgba(200,242,58,0.2)`   Glow effect
+
+------------------------------------------------------------------------
+
+## 🔤 Fonts
+
+-   **Syne** --- Display / headings (bold, geometric)\
+-   **DM Sans** --- Body text (clean, readable)
+
+Loaded via Google Fonts in `globals.css`.
+
+------------------------------------------------------------------------
+
+## ✨ Features
+
+-   Custom cursor with smooth follower\
+-   Sticky header with glassmorphism scroll effect\
+-   Mobile hamburger menu with overlay\
+-   Scroll-based section reveal (IntersectionObserver)\
+-   Hero section with animated badge, grid background, and glow\
+-   Tech stack scrolling marquee banner\
+-   About section with framed photo\
+-   Skills grid with hover effects\
+-   Alternating project card layouts (large + small)\
+-   Contact section with ghost background text\
+-   Fully responsive (mobile-first)
+
+------------------------------------------------------------------------
+
+## 🛠 Built With
+
+-   Next.js\
+-   React\
+-   TypeScript\
+-   Vanilla CSS (Custom Design System)
+
+------------------------------------------------------------------------
+
+## 📄 License
+
+This project is for personal portfolio use.
